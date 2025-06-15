@@ -7,13 +7,16 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import { theme } from './theme';
+import { ResponsiveProvider } from './context/ResponsiveContext';
 
 
 createRoot(document.getElementById('root')!).render(
   <>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <ResponsiveProvider>
+        <App />
+      </ResponsiveProvider>
     </ThemeProvider>
   </>,
 )
