@@ -20,6 +20,8 @@ export function registrationReducer(state: RegistrationFormType, action: { type:
       return { ...state, password: action.payload };
     case "SET_CONFIRM_PASSWORD":
       return { ...state, confirmPassword: action.payload };
+    case "RESET_FORM":
+      return initialState;
     default:
       return state;
   }

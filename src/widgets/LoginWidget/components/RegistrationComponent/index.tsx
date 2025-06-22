@@ -1,11 +1,11 @@
 import { Box, Button, Typography } from "@mui/material";
 import InputField from "../../../../common/InputField";
-import { useReducer } from "react";
+import { FC, useReducer } from "react";
 import { initialState, registrationReducer } from "./RegistrationFormState";
 import { useCreateUserMutation } from "../../LoginWidgetApi";
 
 
-function RegistrationComponent() {
+const RegistrationComponent: FC<{setIsNewUser?: () => void}> = ({setIsNewUser}) => {
   const [state, dispatch] = useReducer(registrationReducer, initialState);
   const [createUser] = useCreateUserMutation();
 
@@ -13,13 +13,20 @@ function RegistrationComponent() {
     dispatch({ type: `SET_${field.toUpperCase()}`, payload: value });
   };
 
+  const resetForm = () => {
+    dispatch({type: "RESET_FORM", payload: ""})
+  }
+
   const handleSubmit = async () => {
     if(state.password === state.confirmPassword) {
       const payload = {...state};
       delete payload.confirmPassword;
-      await createUser(payload);
+      const {data} = await createUser(payload);
+      if(data) {
+        resetForm();
+        setIsNewUser?.();
+      }
     }
-    console.log("Registration Data:", state);
   };
 
   return (

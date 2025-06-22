@@ -36,7 +36,7 @@ const LoginWidget = () => {
       )}
       {newUser && (
         <>
-          <RegistrationComponent />
+          <RegistrationComponent setIsNewUser={() => setNewUser(false)}/>
           {newUserText(true)}
         </>
       )}
