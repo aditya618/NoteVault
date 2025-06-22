@@ -1,20 +1,32 @@
 import express from 'express';
 import User from '../model/User.js';
-import { hashSync } from 'bcrypt';
+import { comparePassword, createToken, hashPassword } from '../lib/util.js';
 
 const router = express.Router();
 
 router.post('/login', (req,res) => {
-    // Logic for user login
-    res.send('Login endpoint');
+    const {email, password} = req.body;
+    User.findOne({email}).then(user => {
+        if(!user) {
+            return res.status(401).send("User Not Found");
+        }
+        if(!comparePassword(password, user.password)) {
+            return res.status(401).send("Invalid Credentials");
+        }
+        const userObj = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        };
+        const token = createToken(userObj);
+        res.status(200).json(token);
+    }).catch(() => {
+        res.status(500).json({err: "Some error occurred"});
+    })
 });
 
-const hashPassword = (password) => {
-    return hashSync(password, 10);
-}
-
 router.post('/register', (req,res) => {
-    // Logic for user registration
     const {firstName, lastName, email, password} = req.body;
     if(!email && email === '') {
         return res.status(400).json({err: 'email is required'});
@@ -28,8 +40,14 @@ router.post('/register', (req,res) => {
         email,
         password: hashPassword(password)
     });
-    newUser.save().then(() => {
-        res.status(201).json({msg: 'User created'});
+    newUser.save().then((user) => {
+        const userObj = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        };
+        res.status(201).json({msg: 'User created', user: userObj});
     }).catch(() => {
         res.status(500).json({msg: 'Error creating user. please try again later'});
     });    
