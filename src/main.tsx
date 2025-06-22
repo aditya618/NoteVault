@@ -8,6 +8,8 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import { theme } from './theme';
 import { ResponsiveProvider } from './context/ResponsiveContext';
+import {Provider} from 'react-redux';
+import { store } from './store';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -15,7 +17,9 @@ createRoot(document.getElementById('root')!).render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ResponsiveProvider>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ResponsiveProvider>
     </ThemeProvider>
   </>,

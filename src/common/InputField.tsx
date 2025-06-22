@@ -7,6 +7,7 @@ interface InputFieldProps {
   placeholder?: string;
   required?: boolean;
   className?: string;
+  onValueChange?: (value: string) => void;
 }
 
 function InputField(props: InputFieldProps) {
@@ -15,6 +16,7 @@ function InputField(props: InputFieldProps) {
     placeholder = "",
     required = false,
     className = "",
+    onValueChange = () => {},
   } = props;
   return (
     <TextField
@@ -22,6 +24,7 @@ function InputField(props: InputFieldProps) {
       type={type}
       placeholder={placeholder}
       className={className}
+      onChange={(e) => onValueChange(e.target.value)}
       sx={{
         "& .MuiOutlinedInput-root": {
             height: "40px",
