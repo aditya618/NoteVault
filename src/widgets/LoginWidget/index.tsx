@@ -4,7 +4,7 @@ import LoginComponent from "./components/LoginComponent";
 import "./loginStylings.scss";
 import { useState } from "react";
 import RegistrationComponent from "./components/RegistrationComponent";
-import { useResponsive } from "../../context/ResponsiveContext";
+import { useResponsive } from "../../hooks/useResponsive";
 
 const LoginWidget = () => {
   const [newUser, setNewUser] = useState(false);

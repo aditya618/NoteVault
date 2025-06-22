@@ -1,14 +1,5 @@
 import { TextField } from "@mui/material";
-
-type InputFieldType = "text" | "email" | "password";
-
-interface InputFieldProps {
-  type?: InputFieldType;
-  placeholder?: string;
-  required?: boolean;
-  className?: string;
-  onValueChange?: (value: string) => void;
-}
+import { InputFieldProps } from "./types";
 
 function InputField(props: InputFieldProps) {
   const {

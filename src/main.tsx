@@ -7,9 +7,9 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import { theme } from './theme';
-import { ResponsiveProvider } from './context/ResponsiveContext';
 import {Provider} from 'react-redux';
 import { store } from './store';
+import { ResponsiveProvider } from './context/ResponsiveProvider';
 
 
 createRoot(document.getElementById('root')!).render(

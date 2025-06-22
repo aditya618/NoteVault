@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useResponsive } from "../../../../context/ResponsiveContext";
+import { useResponsive } from "../../../../hooks/useResponsive";
 
 function BrandComponent() {
   const {isMobile} = useResponsive();
